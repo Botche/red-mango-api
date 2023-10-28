@@ -104,5 +104,60 @@
 
             return this.response;
         }
+
+        [HttpPut("{id:Guid}")]
+        public async Task<ActionResult<ApiResponse>> UpdateMenuItem(Guid id, [FromForm] MenuItemUpdateDTO model)
+        {
+            try
+            {
+                if (this.ModelState.IsValid)
+                {
+                    if (model == null || id != model.Id)
+                    {
+                        return this.BadRequest();
+                    }
+
+                    var menuItem = await this.dbContext.MenuItems.FindAsync(id);
+
+                    if (menuItem == null)
+                    {
+                        return this.BadRequest();
+                    }
+
+                    menuItem.Name = model.Name;
+                    menuItem.Description = model.Description;
+                    menuItem.Category = model.Category;
+                    menuItem.Price = model.Price;
+                    menuItem.SpecialTag = model.SpecialTag;
+                    
+                    if (model.ImageFile != null && model.ImageFile.Length > 0)
+                    {
+                        var imageName = menuItem.ImageUrl.Split('/').Last();
+                        await this.blobService.Delete(imageName, GlobalConstants.StorageContainerName);
+
+                        var fileName = $"{Guid.NewGuid()}{Path.GetExtension(model.ImageFile.FileName)}";
+                        menuItem.ImageUrl = await this.blobService
+                            .Upload(fileName, GlobalConstants.StorageContainerName, model.ImageFile);
+                    }
+
+                    this.dbContext.MenuItems.Update(menuItem);
+                    await this.dbContext.SaveChangesAsync();
+
+                    this.response.StatusCode = HttpStatusCode.NoContent;
+                    return this.Ok(this.response);
+                }
+                else
+                {
+                    this.response.IsSuccess = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.response.IsSuccess = false;
+                this.response.ErrorMessages = new List<string>() { ex.Message };
+            }
+
+            return this.response;
+        }
     }
 }
