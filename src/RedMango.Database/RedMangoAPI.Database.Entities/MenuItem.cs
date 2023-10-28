@@ -1,17 +1,14 @@
-﻿namespace RedMangoAPI.Models
+﻿namespace RedMangoAPI.Database.Entities
 {
     using System.ComponentModel.DataAnnotations;
 
-
-    public class MenuItem
+    public class MenuItem : BaseEntity
     {
         public MenuItem()
+            : base()
         {
-            this.Id = Guid.NewGuid();
         }
 
-        [Key]
-        public Guid Id { get; set; }
         [Required]
         public string Name { get; set; }
         public string Description { get; set; }
@@ -22,6 +19,6 @@
         [Required]
         public string ImageUrl { get; set; }
 
-        public string ImageName => this.ImageUrl.Split('/').Last();
+        public string ImageName => ImageUrl.Split('/').Last();
     }
 }

@@ -1,6 +1,6 @@
-﻿namespace RedMangoAPI.Constants.Seeds
+﻿namespace RedMangoAPI.Database.SeedsData
 {
-    using RedMangoAPI.Models;
+    using RedMangoAPI.Database.Entities;
 
     public static class MenuItemSeed
     {

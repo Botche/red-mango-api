@@ -3,7 +3,8 @@
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
 
-    using RedMangoAPI.Constants.Seeds;
+    using RedMangoAPI.Database.Entities;
+    using RedMangoAPI.Database.SeedsData;
     using RedMangoAPI.Models;
 
     public class RedMangoDbContext : IdentityDbContext<ApplicationUser>
