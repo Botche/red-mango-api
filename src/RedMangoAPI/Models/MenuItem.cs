@@ -21,5 +21,7 @@
         public double Price { get; set; }
         [Required]
         public string ImageUrl { get; set; }
+
+        public string ImageName => this.ImageUrl.Split('/').Last();
     }
 }

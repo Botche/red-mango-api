@@ -12,5 +12,6 @@
         [Range(1, int.MaxValue)]
         public double Price { get; set; }
         public IFormFile ImageFile { get; set; }
+        public string ImageFileName => $"{Guid.NewGuid()}{Path.GetExtension(this.ImageFile.FileName)}";
     }
 }

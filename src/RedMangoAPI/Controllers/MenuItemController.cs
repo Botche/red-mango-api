@@ -62,7 +62,6 @@
                         return this.BadRequest();
                     }
 
-                    var fileName = $"{Guid.NewGuid()}{Path.GetExtension(model.ImageFile.FileName)}";
                     var menuItemToCreate = new MenuItem()
                     {
                         Name = model.Name,
@@ -71,7 +70,7 @@
                         Price = model.Price,
                         SpecialTag = model.SpecialTag,
                         ImageUrl = await this.blobService
-                            .Upload(fileName, GlobalConstants.StorageContainerName, model.ImageFile),
+                            .Upload(model.ImageFileName, GlobalConstants.StorageContainerName, model.ImageFile),
                     };
 
                     this.DbContext.MenuItems.Add(menuItemToCreate);
@@ -123,12 +122,10 @@
 
                     if (model.ImageFile != null && model.ImageFile.Length > 0)
                     {
-                        var imageName = menuItem.ImageUrl.Split('/').Last();
-                        await this.blobService.Delete(imageName, GlobalConstants.StorageContainerName);
+                        await this.blobService.Delete(menuItem.ImageName, GlobalConstants.StorageContainerName);
 
-                        var fileName = $"{Guid.NewGuid()}{Path.GetExtension(model.ImageFile.FileName)}";
                         menuItem.ImageUrl = await this.blobService
-                            .Upload(fileName, GlobalConstants.StorageContainerName, model.ImageFile);
+                            .Upload(model.ImageFileName, GlobalConstants.StorageContainerName, model.ImageFile);
                     }
 
                     this.DbContext.MenuItems.Update(menuItem);
@@ -168,8 +165,7 @@
                     return this.BadRequest();
                 }
 
-                var imageName = menuItem.ImageUrl.Split('/').Last();
-                await this.blobService.Delete(imageName, GlobalConstants.StorageContainerName);
+                await this.blobService.Delete(menuItem.ImageName, GlobalConstants.StorageContainerName);
 
                 // Intentionaly added delay
                 int milliseconds = 2000;
