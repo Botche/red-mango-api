@@ -89,7 +89,7 @@
                     this.response.Result = menuItemToCreate;
                     this.response.StatusCode = HttpStatusCode.Created;
 
-                    return this.CreatedAtRoute(nameof(GetMenuItem), new {id = menuItemToCreate.Id}, this.response);
+                    return this.CreatedAtRoute(nameof(GetMenuItem), new { id = menuItemToCreate.Id }, this.response);
                 }
                 else
                 {
@@ -129,7 +129,7 @@
                     menuItem.Category = model.Category;
                     menuItem.Price = model.Price;
                     menuItem.SpecialTag = model.SpecialTag;
-                    
+
                     if (model.ImageFile != null && model.ImageFile.Length > 0)
                     {
                         var imageName = menuItem.ImageUrl.Split('/').Last();
@@ -150,6 +150,45 @@
                 {
                     this.response.IsSuccess = false;
                 }
+            }
+            catch (Exception ex)
+            {
+                this.response.IsSuccess = false;
+                this.response.ErrorMessages = new List<string>() { ex.Message };
+            }
+
+            return this.response;
+        }
+
+        [HttpDelete("{id:Guid}")]
+        public async Task<ActionResult<ApiResponse>> DeleteMenuItem(Guid id)
+        {
+            try
+            {
+                if (id == Guid.Empty)
+                {
+                    return this.BadRequest();
+                }
+                
+                var menuItem = await this.dbContext.MenuItems.FindAsync(id);
+
+                if (menuItem == null)
+                {
+                    return this.BadRequest();
+                }
+
+                var imageName = menuItem.ImageUrl.Split('/').Last();
+                await this.blobService.Delete(imageName, GlobalConstants.StorageContainerName);
+
+                // Intentionaly added delay
+                int milliseconds = 2000;
+                Thread.Sleep(milliseconds);
+
+                this.dbContext.MenuItems.Remove(menuItem);
+                await this.dbContext.SaveChangesAsync();
+
+                this.response.StatusCode = HttpStatusCode.NoContent;
+                return this.Ok(this.response);
             }
             catch (Exception ex)
             {
