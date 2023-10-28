@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace RedMangoAPI.Migrations
+namespace RedMangoAPI.Database.Migrations
 {
     /// <inheritdoc />
     public partial class AddMenuItems : Migration

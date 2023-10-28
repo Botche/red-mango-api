@@ -1,11 +1,10 @@
-﻿namespace RedMangoAPI.Data
+﻿namespace RedMangoAPI.Database
 {
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
 
     using RedMangoAPI.Database.Entities;
     using RedMangoAPI.Database.SeedsData;
-    using RedMangoAPI.Models;
 
     public class RedMangoDbContext : IdentityDbContext<ApplicationUser>
     {

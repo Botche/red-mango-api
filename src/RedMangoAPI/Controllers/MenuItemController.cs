@@ -5,7 +5,8 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
 
-    using RedMangoAPI.Data;
+    using RedMangoAPI.Database;
+    using RedMangoAPI.Database.Entities;
     using RedMangoAPI.Models;
     using RedMangoAPI.Models.Dto;
     using RedMangoAPI.Services;

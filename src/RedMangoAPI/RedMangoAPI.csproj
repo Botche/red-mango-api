@@ -19,4 +19,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\RedMango.Database\RedMangoAPI.Database\RedMangoAPI.Database.csproj" />
+    <ProjectReference Include="..\RedMango.Services\RedMangoAPI.Services.Mapper\RedMangoAPI.Services.Mapper.csproj" />
+  </ItemGroup>
+
 </Project>

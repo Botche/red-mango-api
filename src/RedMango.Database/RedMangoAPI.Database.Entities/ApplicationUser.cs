@@ -1,4 +1,4 @@
-﻿namespace RedMangoAPI.Models
+﻿namespace RedMangoAPI.Database.Entities
 {
     using Microsoft.AspNetCore.Identity;
 

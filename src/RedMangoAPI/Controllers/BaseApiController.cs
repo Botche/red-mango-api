@@ -6,7 +6,7 @@
     using Microsoft.AspNetCore.Mvc.Infrastructure;
     using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-    using RedMangoAPI.Data;
+    using RedMangoAPI.Database;
     using RedMangoAPI.Models;
 
 

@@ -1,7 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace RedMangoAPI.Database.Entities
+﻿namespace RedMangoAPI.Database.Entities
 {
+    using System.ComponentModel.DataAnnotations;
+
     public abstract class BaseEntity
     {
         public BaseEntity()

@@ -3,8 +3,8 @@ using Azure.Storage.Blobs;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-using RedMangoAPI.Data;
-using RedMangoAPI.Models;
+using RedMangoAPI.Database;
+using RedMangoAPI.Database.Entities;
 using RedMangoAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
