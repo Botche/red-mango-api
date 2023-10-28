@@ -3,12 +3,16 @@
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
 
-    public class RedMangoDbContext : IdentityDbContext
+    using RedMangoAPI.Models;
+
+    public class RedMangoDbContext : IdentityDbContext<ApplicationUser>
     {
         public RedMangoDbContext(DbContextOptions options)
             : base(options)
         {
 
         }
+
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
     }
 }
