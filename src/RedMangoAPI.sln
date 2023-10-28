@@ -3,7 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedMangoAPI", "RedMangoAPI\RedMangoAPI.csproj", "{1F8F2161-2D50-4BBE-A350-07B4E89A71BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedMangoAPI", "RedMangoAPI\RedMangoAPI.csproj", "{1F8F2161-2D50-4BBE-A350-07B4E89A71BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedMangoAPI.Services.Mapper", "RedMango.Services\RedMangoAPI.Services.Mapper\RedMangoAPI.Services.Mapper.csproj", "{79C88BD5-D6B2-433D-AC95-383DF0CCFB0A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RedMangoAPI.Services", "RedMangoAPI.Services", "{7B669A46-CD23-4D7C-9549-90A0B58F17F1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RedMangoAPI.Database", "RedMangoAPI.Database", "{4893435F-7994-40D4-BA27-92D092741203}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedMangoAPI.Database", "RedMango.Database\RedMangoAPI.Database\RedMangoAPI.Database.csproj", "{B079619F-F440-42BC-A4B7-ADBC5EAC5599}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedMangoAPI.Database.Entities", "RedMango.Database\RedMangoAPI.Database.Entities\RedMangoAPI.Database.Entities.csproj", "{59B7AA65-8E0F-45FF-9774-717FC1944CC2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +25,26 @@ Global
 		{1F8F2161-2D50-4BBE-A350-07B4E89A71BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F8F2161-2D50-4BBE-A350-07B4E89A71BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F8F2161-2D50-4BBE-A350-07B4E89A71BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79C88BD5-D6B2-433D-AC95-383DF0CCFB0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79C88BD5-D6B2-433D-AC95-383DF0CCFB0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79C88BD5-D6B2-433D-AC95-383DF0CCFB0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79C88BD5-D6B2-433D-AC95-383DF0CCFB0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B079619F-F440-42BC-A4B7-ADBC5EAC5599}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B079619F-F440-42BC-A4B7-ADBC5EAC5599}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B079619F-F440-42BC-A4B7-ADBC5EAC5599}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B079619F-F440-42BC-A4B7-ADBC5EAC5599}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59B7AA65-8E0F-45FF-9774-717FC1944CC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59B7AA65-8E0F-45FF-9774-717FC1944CC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59B7AA65-8E0F-45FF-9774-717FC1944CC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59B7AA65-8E0F-45FF-9774-717FC1944CC2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{79C88BD5-D6B2-433D-AC95-383DF0CCFB0A} = {7B669A46-CD23-4D7C-9549-90A0B58F17F1}
+		{B079619F-F440-42BC-A4B7-ADBC5EAC5599} = {4893435F-7994-40D4-BA27-92D092741203}
+		{59B7AA65-8E0F-45FF-9774-717FC1944CC2} = {4893435F-7994-40D4-BA27-92D092741203}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2200F188-8E24-40B4-9387-01C20174C1E8}
