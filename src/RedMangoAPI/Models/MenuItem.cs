@@ -5,6 +5,11 @@
 
     public class MenuItem
     {
+        public MenuItem()
+        {
+            this.Id = Guid.NewGuid();
+        }
+
         [Key]
         public Guid Id { get; set; }
         [Required]
