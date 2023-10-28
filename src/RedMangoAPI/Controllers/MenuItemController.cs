@@ -68,6 +68,8 @@
                 {
                     if (model.ImageFile == null || model.ImageFile.Length == 0)
                     {
+                        this.response.StatusCode = HttpStatusCode.BadRequest;
+                        this.response.IsSuccess = false;
                         return this.BadRequest();
                     }
 
@@ -114,6 +116,8 @@
                 {
                     if (model == null || id != model.Id)
                     {
+                        this.response.StatusCode = HttpStatusCode.BadRequest;
+                        this.response.IsSuccess = false;
                         return this.BadRequest();
                     }
 
@@ -121,6 +125,8 @@
 
                     if (menuItem == null)
                     {
+                        this.response.StatusCode = HttpStatusCode.BadRequest;
+                        this.response.IsSuccess = false;
                         return this.BadRequest();
                     }
 
@@ -167,6 +173,8 @@
             {
                 if (id == Guid.Empty)
                 {
+                    this.response.StatusCode = HttpStatusCode.BadRequest;
+                    this.response.IsSuccess = false;
                     return this.BadRequest();
                 }
                 
@@ -174,6 +182,8 @@
 
                 if (menuItem == null)
                 {
+                    this.response.StatusCode = HttpStatusCode.BadRequest;
+                    this.response.IsSuccess = false;
                     return this.BadRequest();
                 }
 
