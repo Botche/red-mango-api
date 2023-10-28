@@ -11,28 +11,23 @@
     using RedMangoAPI.Services;
     using RedMangoAPI.Utility.Constants;
 
-    [Route("api/[controller]")]
-    [ApiController]
-    public class MenuItemController : ControllerBase
+    public class MenuItemController : BaseApiController
     {
-        private readonly RedMangoDbContext dbContext;
         private readonly IBlobService blobService;
-        private readonly ApiResponse response;
 
         public MenuItemController(RedMangoDbContext dbContext, IBlobService blobService)
+            : base(dbContext) 
         {
-            this.dbContext = dbContext;
             this.blobService = blobService;
-            this.response = new ApiResponse();
         }
 
         [HttpGet]
         public async Task<IActionResult> GetMenuItems()
         {
-            this.response.Result = await this.dbContext.MenuItems.ToListAsync();
-            this.response.StatusCode = HttpStatusCode.OK;
+            this.ApiResponse.Result = await this.DbContext.MenuItems.ToListAsync();
+            this.ApiResponse.StatusCode = HttpStatusCode.OK;
 
-            return this.Ok(this.response);
+            return this.Ok(this.ApiResponse);
         }
 
         [HttpGet("{id:Guid}", Name = "GetMenuItem")]
@@ -40,23 +35,19 @@
         {
             if (id == Guid.Empty)
             {
-                this.response.StatusCode = HttpStatusCode.BadRequest;
-                this.response.IsSuccess = false;
-                return this.BadRequest(this.response);
+                return this.BadRequest(this.ApiResponse);
             }
 
-            var menuItem = await this.dbContext.MenuItems.FindAsync(id);
+            var menuItem = await this.DbContext.MenuItems.FindAsync(id);
             if (menuItem == null)
             {
-                this.response.StatusCode = HttpStatusCode.NotFound;
-                this.response.IsSuccess = false;
-                return this.NotFound(this.response);
+                return this.NotFound(this.ApiResponse);
             }
 
-            this.response.Result = menuItem;
-            this.response.StatusCode = HttpStatusCode.OK;
+            this.ApiResponse.Result = menuItem;
+            this.ApiResponse.StatusCode = HttpStatusCode.OK;
 
-            return this.Ok(this.response);
+            return this.Ok(this.ApiResponse);
         }
 
         [HttpPost]
@@ -68,8 +59,6 @@
                 {
                     if (model.ImageFile == null || model.ImageFile.Length == 0)
                     {
-                        this.response.StatusCode = HttpStatusCode.BadRequest;
-                        this.response.IsSuccess = false;
                         return this.BadRequest();
                     }
 
@@ -85,26 +74,26 @@
                             .Upload(fileName, GlobalConstants.StorageContainerName, model.ImageFile),
                     };
 
-                    this.dbContext.MenuItems.Add(menuItemToCreate);
-                    await this.dbContext.SaveChangesAsync();
+                    this.DbContext.MenuItems.Add(menuItemToCreate);
+                    await this.DbContext.SaveChangesAsync();
 
-                    this.response.Result = menuItemToCreate;
-                    this.response.StatusCode = HttpStatusCode.Created;
+                    this.ApiResponse.Result = menuItemToCreate;
+                    this.ApiResponse.StatusCode = HttpStatusCode.Created;
 
-                    return this.CreatedAtRoute(nameof(GetMenuItem), new { id = menuItemToCreate.Id }, this.response);
+                    return this.CreatedAtRoute(nameof(GetMenuItem), new { id = menuItemToCreate.Id }, this.ApiResponse);
                 }
                 else
                 {
-                    this.response.IsSuccess = false;
+                    this.ApiResponse.IsSuccess = false;
                 }
             }
             catch (Exception ex)
             {
-                this.response.IsSuccess = false;
-                this.response.ErrorMessages = new List<string>() { ex.Message };
+                this.ApiResponse.IsSuccess = false;
+                this.ApiResponse.ErrorMessages = new List<string>() { ex.Message };
             }
 
-            return this.response;
+            return this.ApiResponse;
         }
 
         [HttpPut("{id:Guid}")]
@@ -116,17 +105,13 @@
                 {
                     if (model == null || id != model.Id)
                     {
-                        this.response.StatusCode = HttpStatusCode.BadRequest;
-                        this.response.IsSuccess = false;
                         return this.BadRequest();
                     }
 
-                    var menuItem = await this.dbContext.MenuItems.FindAsync(id);
+                    var menuItem = await this.DbContext.MenuItems.FindAsync(id);
 
                     if (menuItem == null)
                     {
-                        this.response.StatusCode = HttpStatusCode.BadRequest;
-                        this.response.IsSuccess = false;
                         return this.BadRequest();
                     }
 
@@ -146,24 +131,24 @@
                             .Upload(fileName, GlobalConstants.StorageContainerName, model.ImageFile);
                     }
 
-                    this.dbContext.MenuItems.Update(menuItem);
-                    await this.dbContext.SaveChangesAsync();
+                    this.DbContext.MenuItems.Update(menuItem);
+                    await this.DbContext.SaveChangesAsync();
 
-                    this.response.StatusCode = HttpStatusCode.NoContent;
-                    return this.Ok(this.response);
+                    this.ApiResponse.StatusCode = HttpStatusCode.NoContent;
+                    return this.Ok(this.ApiResponse);
                 }
                 else
                 {
-                    this.response.IsSuccess = false;
+                    this.ApiResponse.IsSuccess = false;
                 }
             }
             catch (Exception ex)
             {
-                this.response.IsSuccess = false;
-                this.response.ErrorMessages = new List<string>() { ex.Message };
+                this.ApiResponse.IsSuccess = false;
+                this.ApiResponse.ErrorMessages = new List<string>() { ex.Message };
             }
 
-            return this.response;
+            return this.ApiResponse;
         }
 
         [HttpDelete("{id:Guid}")]
@@ -173,17 +158,13 @@
             {
                 if (id == Guid.Empty)
                 {
-                    this.response.StatusCode = HttpStatusCode.BadRequest;
-                    this.response.IsSuccess = false;
                     return this.BadRequest();
                 }
                 
-                var menuItem = await this.dbContext.MenuItems.FindAsync(id);
+                var menuItem = await this.DbContext.MenuItems.FindAsync(id);
 
                 if (menuItem == null)
                 {
-                    this.response.StatusCode = HttpStatusCode.BadRequest;
-                    this.response.IsSuccess = false;
                     return this.BadRequest();
                 }
 
@@ -194,19 +175,19 @@
                 int milliseconds = 2000;
                 Thread.Sleep(milliseconds);
 
-                this.dbContext.MenuItems.Remove(menuItem);
-                await this.dbContext.SaveChangesAsync();
+                this.DbContext.MenuItems.Remove(menuItem);
+                await this.DbContext.SaveChangesAsync();
 
-                this.response.StatusCode = HttpStatusCode.NoContent;
-                return this.Ok(this.response);
+                this.ApiResponse.StatusCode = HttpStatusCode.NoContent;
+                return this.Ok(this.ApiResponse);
             }
             catch (Exception ex)
             {
-                this.response.IsSuccess = false;
-                this.response.ErrorMessages = new List<string>() { ex.Message };
+                this.ApiResponse.IsSuccess = false;
+                this.ApiResponse.ErrorMessages = new List<string>() { ex.Message };
             }
 
-            return this.response;
+            return this.ApiResponse;
         }
     }
 }
