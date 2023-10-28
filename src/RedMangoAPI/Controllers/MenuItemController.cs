@@ -2,6 +2,8 @@
 {
     using System.Net;
 
+    using AutoMapper;
+
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
 
@@ -16,8 +18,8 @@
     {
         private readonly IBlobService blobService;
 
-        public MenuItemController(RedMangoDbContext dbContext, IBlobService blobService)
-            : base(dbContext) 
+        public MenuItemController(RedMangoDbContext dbContext, IMapper mapper, IBlobService blobService)
+            : base(dbContext, mapper) 
         {
             this.blobService = blobService;
         }
@@ -63,16 +65,9 @@
                         return this.BadRequest();
                     }
 
-                    var menuItemToCreate = new MenuItem()
-                    {
-                        Name = model.Name,
-                        Category = model.Category,
-                        Description = model.Description,
-                        Price = model.Price,
-                        SpecialTag = model.SpecialTag,
-                        ImageUrl = await this.blobService
-                            .Upload(model.ImageFileName, GlobalConstants.StorageContainerName, model.ImageFile),
-                    };
+                    var menuItemToCreate = this.Mapper.Map<MenuItem>(model);
+                    menuItemToCreate.ImageUrl = await this.blobService
+                            .Upload(model.ImageFileName, GlobalConstants.StorageContainerName, model.ImageFile);
 
                     this.DbContext.MenuItems.Add(menuItemToCreate);
                     await this.DbContext.SaveChangesAsync();
@@ -115,18 +110,14 @@
                         return this.BadRequest();
                     }
 
-                    menuItem.Name = model.Name;
-                    menuItem.Description = model.Description;
-                    menuItem.Category = model.Category;
-                    menuItem.Price = model.Price;
-                    menuItem.SpecialTag = model.SpecialTag;
+                    menuItem = this.Mapper.Map(model, menuItem); 
 
-                    if (model.ImageFile != null && model.ImageFile.Length > 0)
+                    if (model.NewImageFile != null && model.NewImageFile.Length > 0)
                     {
                         await this.blobService.Delete(menuItem.ImageName, GlobalConstants.StorageContainerName);
 
                         menuItem.ImageUrl = await this.blobService
-                            .Upload(model.ImageFileName, GlobalConstants.StorageContainerName, model.ImageFile);
+                            .Upload(model.NewImageFileName, GlobalConstants.StorageContainerName, model.NewImageFile);
                     }
 
                     this.DbContext.MenuItems.Update(menuItem);

@@ -1,8 +1,10 @@
 ﻿namespace RedMangoAPI.Models.Dto
 {
     using System.ComponentModel.DataAnnotations;
+    using RedMangoAPI.Database.Entities;
+    using RedMangoAPI.Services.Mapper.Interfaces;
 
-    public class MenuItemUpdateDTO
+    public class MenuItemUpdateDTO : IMapTo<MenuItem>
     {
         [Key]
         public Guid Id { get; set; }
@@ -13,7 +15,8 @@
         public string Category { get; set; }
         [Range(1, int.MaxValue)]
         public double Price { get; set; }
-        public IFormFile ImageFile { get; set; }
-        public string ImageFileName => $"{Guid.NewGuid()}{Path.GetExtension(this.ImageFile.FileName)}";
+        public IFormFile NewImageFile { get; set; }
+
+        internal string NewImageFileName => $"{Guid.NewGuid()}{Path.GetExtension(this.NewImageFile.FileName)}";
     }
 }

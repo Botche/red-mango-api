@@ -2,6 +2,8 @@
 {
     using System.Net;
 
+    using AutoMapper;
+
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Infrastructure;
     using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -15,11 +17,13 @@
     public class BaseApiController : ControllerBase
     {
         protected readonly RedMangoDbContext DbContext;
+        protected readonly IMapper Mapper;
         protected readonly ApiResponse ApiResponse;
 
-        public BaseApiController(RedMangoDbContext dbContext)
+        public BaseApiController(RedMangoDbContext dbContext, IMapper mapper)
         {
             this.DbContext = dbContext;
+            this.Mapper = mapper;
             this.ApiResponse = new ApiResponse();
         }
 

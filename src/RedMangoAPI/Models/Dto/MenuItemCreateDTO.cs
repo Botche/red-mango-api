@@ -2,7 +2,10 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    public class MenuItemCreateDTO
+    using RedMangoAPI.Database.Entities;
+    using RedMangoAPI.Services.Mapper.Interfaces;
+
+    public class MenuItemCreateDTO : IMapTo<MenuItem>
     {
         [Required]
         public string Name { get; set; }
@@ -12,6 +15,7 @@
         [Range(1, int.MaxValue)]
         public double Price { get; set; }
         public IFormFile ImageFile { get; set; }
-        public string ImageFileName => $"{Guid.NewGuid()}{Path.GetExtension(this.ImageFile.FileName)}";
+
+        internal string ImageFileName => $"{Guid.NewGuid()}{Path.GetExtension(this.ImageFile.FileName)}";
     }
 }

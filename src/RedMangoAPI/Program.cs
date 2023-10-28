@@ -33,6 +33,7 @@ builder.Services.AddSwaggerGen();
 List<Assembly> assemblies = new List<Assembly>()
 {
     Assembly.GetAssembly(typeof(BaseEntity)),
+    Assembly.GetExecutingAssembly(),
 };
 
 AutoMapperConfig.RegisterMappings(assemblies.ToArray());
