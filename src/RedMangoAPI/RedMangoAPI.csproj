@@ -25,8 +25,4 @@
     <ProjectReference Include="..\RedMangoAPI.Services\RedMangoAPI.Services\RedMangoAPI.Services.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
 </Project>
