@@ -4,6 +4,7 @@
 
     using AutoMapper;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +15,7 @@
     using RedMangoAPI.Services.Interfaces;
     using RedMangoAPI.Utility.Constants;
 
+    [Authorize]
     public class MenuItemController : BaseApiController
     {
         private readonly IBlobService blobService;
