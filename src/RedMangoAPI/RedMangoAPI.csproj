@@ -20,8 +20,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RedMango.Database\RedMangoAPI.Database\RedMangoAPI.Database.csproj" />
-    <ProjectReference Include="..\RedMango.Services\RedMangoAPI.Services.Mapper\RedMangoAPI.Services.Mapper.csproj" />
+    <ProjectReference Include="..\RedMangoAPI.Database\RedMangoAPI.Database.Entities\RedMangoAPI.Database.Entities.csproj" />
+    <ProjectReference Include="..\RedMangoAPI.Database\RedMangoAPI.Database\RedMangoAPI.Database.csproj" />
+    <ProjectReference Include="..\RedMangoAPI.Services\RedMangoAPI.Services.Mapper\RedMangoAPI.Services.Mapper.csproj" />
+    <ProjectReference Include="..\RedMangoAPI.Services\RedMangoAPI.Services\RedMangoAPI.Services.csproj" />
   </ItemGroup>
 
 </Project>

@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\RedMango.Database\RedMangoAPI.Database.Entities\RedMangoAPI.Database.Entities.csproj" />
+    <ProjectReference Include="..\..\RedMangoAPI.Database\RedMangoAPI.Database.Entities\RedMangoAPI.Database.Entities.csproj" />
   </ItemGroup>
 
 </Project>
