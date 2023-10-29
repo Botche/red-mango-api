@@ -1,10 +1,10 @@
 ﻿namespace RedMangoAPI.Utility.Constants
 {
-    public static class GlobalConstants
+    internal static class GlobalConstants
     {
-        public const string STORAGE_CONTAINER_NAME = "redmango";
+        internal const string StorageContainerName = "redmango";
 
-        public const string ROLE_ADMIN = "admin";
-        public const string ROLE_CUSTOMER = "customer";
+        internal const string RoleAdmin = "admin";
+        internal const string RoleCustomer = "customer";
     }
 }

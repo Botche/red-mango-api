@@ -86,13 +86,13 @@
                 var result = await this.userManager.CreateAsync(newUser, model.Password);
                 if (result.Succeeded)
                 {
-                    if (!await this.roleManager.RoleExistsAsync(GlobalConstants.ROLE_ADMIN))
+                    if (!await this.roleManager.RoleExistsAsync(GlobalConstants.RoleAdmin))
                     {
-                        await this.roleManager.CreateAsync(new IdentityRole(GlobalConstants.ROLE_ADMIN));
-                        await this.roleManager.CreateAsync(new IdentityRole(GlobalConstants.ROLE_CUSTOMER));
+                        await this.roleManager.CreateAsync(new IdentityRole(GlobalConstants.RoleAdmin));
+                        await this.roleManager.CreateAsync(new IdentityRole(GlobalConstants.RoleCustomer));
                     }
 
-                    await this.userManager.AddToRoleAsync(newUser, GlobalConstants.ROLE_CUSTOMER);
+                    await this.userManager.AddToRoleAsync(newUser, GlobalConstants.RoleCustomer);
 
                     return this.Ok(this.ApiResponse);
                 }
@@ -112,10 +112,10 @@
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim("fullName", user.UserName),
-                    new Claim("id", user.Id.ToString()),
-                    new Claim(ClaimTypes.Email, user.Email.ToString()),
-                    new Claim(ClaimTypes.Role, role),
+                    new Claim(CustomClaimTypes.UserName, user.UserName),
+                    new Claim(CustomClaimTypes.Id, user.Id.ToString()),
+                    new Claim(CustomClaimTypes.Email, user.Email.ToString()),
+                    new Claim(CustomClaimTypes.Role, role),
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(
