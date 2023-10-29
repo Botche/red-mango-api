@@ -1,4 +1,4 @@
-﻿namespace RedMangoAPI.Models.Dto
+﻿namespace RedMangoAPI.Models.Dto.MenuItem
 {
     using System.ComponentModel.DataAnnotations;
     using System.Runtime.Serialization;
@@ -21,6 +21,6 @@
         public IFormFile NewImageFile { get; set; }
 
         [JsonIgnore]
-        public string NewImageFileName => $"{Guid.NewGuid()}{Path.GetExtension(this.NewImageFile.FileName)}";
+        public string NewImageFileName => $"{Guid.NewGuid()}{Path.GetExtension(NewImageFile.FileName)}";
     }
 }

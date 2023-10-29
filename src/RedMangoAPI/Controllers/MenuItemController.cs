@@ -10,7 +10,7 @@
     using RedMangoAPI.Database;
     using RedMangoAPI.Database.Entities;
     using RedMangoAPI.Models;
-    using RedMangoAPI.Models.Dto;
+    using RedMangoAPI.Models.Dto.MenuItem;
     using RedMangoAPI.Services.Interfaces;
     using RedMangoAPI.Utility.Constants;
 
