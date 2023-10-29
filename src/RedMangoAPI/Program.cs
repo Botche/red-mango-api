@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 using RedMangoAPI.Database;
 using RedMangoAPI.Database.Entities;
+using RedMangoAPI.Infrastructure.Filters;
 using RedMangoAPI.Services;
 using RedMangoAPI.Services.Mapper;
 
@@ -22,13 +23,20 @@ builder.Services.AddDbContext<RedMangoDbContext>(options =>
 builder.Services.AddSingleton(u => new BlobServiceClient(
     builder.Configuration.GetConnectionString("ImagesStorageConnection")
 ));
+
 builder.Services.AddSingleton<IBlobService, BlobService>();
+
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<RedMangoDbContext>();
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+builder.Services.AddSwaggerGen(options =>
+{
+    options.OperationFilter<IgnorePropertyFilter>();
+});
 
 List<Assembly> assemblies = new List<Assembly>()
 {

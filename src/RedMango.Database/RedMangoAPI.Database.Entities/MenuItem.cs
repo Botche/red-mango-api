@@ -1,6 +1,8 @@
 ﻿namespace RedMangoAPI.Database.Entities
 {
     using System.ComponentModel.DataAnnotations;
+    using System.Runtime.Serialization;
+    using System.Text.Json.Serialization;
 
     public class MenuItem : BaseEntity
     {
@@ -19,6 +21,7 @@
         [Required]
         public string ImageUrl { get; set; }
 
+        [JsonIgnore]
         public string ImageName => ImageUrl.Split('/').Last();
     }
 }

@@ -1,6 +1,8 @@
 ﻿namespace RedMangoAPI.Models.Dto
 {
     using System.ComponentModel.DataAnnotations;
+    using System.Runtime.Serialization;
+    using System.Text.Json.Serialization;
 
     using RedMangoAPI.Database.Entities;
     using RedMangoAPI.Services.Mapper.Interfaces;
@@ -16,6 +18,7 @@
         public double Price { get; set; }
         public IFormFile ImageFile { get; set; }
 
-        internal string ImageFileName => $"{Guid.NewGuid()}{Path.GetExtension(this.ImageFile.FileName)}";
+        [JsonIgnore]
+        public string ImageFileName => $"{Guid.NewGuid()}{Path.GetExtension(this.ImageFile.FileName)}";
     }
 }
