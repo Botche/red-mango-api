@@ -67,7 +67,7 @@
 
                     var menuItemToCreate = this.Mapper.Map<MenuItem>(model);
                     menuItemToCreate.ImageUrl = await this.blobService
-                            .Upload(model.ImageFileName, GlobalConstants.StorageContainerName, model.ImageFile);
+                            .Upload(model.ImageFileName, GlobalConstants.STORAGE_CONTAINER_NAME, model.ImageFile);
 
                     this.DbContext.MenuItems.Add(menuItemToCreate);
                     await this.DbContext.SaveChangesAsync();
@@ -114,10 +114,10 @@
 
                     if (model.NewImageFile != null && model.NewImageFile.Length > 0)
                     {
-                        await this.blobService.Delete(menuItem.ImageName, GlobalConstants.StorageContainerName);
+                        await this.blobService.Delete(menuItem.ImageName, GlobalConstants.STORAGE_CONTAINER_NAME);
 
                         menuItem.ImageUrl = await this.blobService
-                            .Upload(model.NewImageFileName, GlobalConstants.StorageContainerName, model.NewImageFile);
+                            .Upload(model.NewImageFileName, GlobalConstants.STORAGE_CONTAINER_NAME, model.NewImageFile);
                     }
 
                     this.DbContext.MenuItems.Update(menuItem);
@@ -157,7 +157,7 @@
                     return this.BadRequest();
                 }
 
-                await this.blobService.Delete(menuItem.ImageName, GlobalConstants.StorageContainerName);
+                await this.blobService.Delete(menuItem.ImageName, GlobalConstants.STORAGE_CONTAINER_NAME);
 
                 // Intentionaly added delay
                 int milliseconds = 2000;

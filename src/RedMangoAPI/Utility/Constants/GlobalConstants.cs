@@ -2,6 +2,6 @@
 {
     public static class GlobalConstants
     {
-        public const string StorageContainerName = "redmango";
+        public const string STORAGE_CONTAINER_NAME = "redmango";
     }
 }
