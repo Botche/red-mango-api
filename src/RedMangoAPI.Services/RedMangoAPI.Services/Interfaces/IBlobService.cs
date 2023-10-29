@@ -1,5 +1,7 @@
-﻿namespace RedMangoAPI.Services
+﻿namespace RedMangoAPI.Services.Interfaces
 {
+    using Microsoft.AspNetCore.Http;
+
     public interface IBlobService
     {
         string Get(string blobName, string containerName);

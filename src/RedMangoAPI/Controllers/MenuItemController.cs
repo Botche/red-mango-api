@@ -11,7 +11,7 @@
     using RedMangoAPI.Database.Entities;
     using RedMangoAPI.Models;
     using RedMangoAPI.Models.Dto;
-    using RedMangoAPI.Services;
+    using RedMangoAPI.Services.Interfaces;
     using RedMangoAPI.Utility.Constants;
 
     public class MenuItemController : BaseApiController

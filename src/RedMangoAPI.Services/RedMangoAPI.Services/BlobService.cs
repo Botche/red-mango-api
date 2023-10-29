@@ -1,8 +1,12 @@
-﻿using Azure.Storage.Blobs;
-using Azure.Storage.Blobs.Models;
-
-namespace RedMangoAPI.Services
+﻿namespace RedMangoAPI.Services
 {
+    using Azure.Storage.Blobs;
+    using Azure.Storage.Blobs.Models;
+
+    using Microsoft.AspNetCore.Http;
+
+    using RedMangoAPI.Services.Interfaces;
+
     public class BlobService : IBlobService
     {
         private readonly BlobServiceClient blobServiceClient;

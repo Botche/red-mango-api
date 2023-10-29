@@ -9,6 +9,7 @@ using RedMangoAPI.Database;
 using RedMangoAPI.Database.Entities;
 using RedMangoAPI.Infrastructure.Filters;
 using RedMangoAPI.Services;
+using RedMangoAPI.Services.Interfaces;
 using RedMangoAPI.Services.Mapper;
 
 var builder = WebApplication.CreateBuilder(args);
