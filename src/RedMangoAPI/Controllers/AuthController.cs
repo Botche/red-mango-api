@@ -28,6 +28,34 @@
             this.roleManager = roleManager;
         }
 
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginRequestDTO model)
+        {
+            var userFromDb = this.DbContext.ApplicationUsers
+                .FirstOrDefault(u => string.Compare(u.UserName, model.UserName) == 0);
+
+            var isValid = await this.userManager.CheckPasswordAsync(userFromDb, model.Password);
+            if (!isValid)
+            {
+                this.ApiResponse.Result = new LoginResponseDTO;
+                this.ApiResponse.ErrorMessages.Add("Username or password is incorrect");
+
+                return BadRequest(this.ApiResponse);
+            }
+
+            // generate JWT Token
+
+            var loginResponse = new LoginResponseDTO
+            {
+                Email = userFromDb.Email,
+                Token = "REPLACE WITH ACTUAL TOKEN ONCE WE GENERATE",
+            };
+
+            this.ApiResponse.Result = loginResponse;
+
+            return this.Ok(this.ApiResponse);
+        }
+
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterRequestDTO model)
         {
