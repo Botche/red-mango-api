@@ -1,7 +1,7 @@
-﻿namespace RedMangoAPI.Models.Dto.CartItem
+﻿namespace RedMangoAPI.Models.Dto.CartItems
 {
     using RedMangoAPI.Database.Entities;
-    using RedMangoAPI.Models.Dto.MenuItem;
+    using RedMangoAPI.Models.Dto.MenuItems;
     using RedMangoAPI.Services.Mapper.Interfaces;
 
     public class GetCartItemDTO : IMapFrom<CartItem>

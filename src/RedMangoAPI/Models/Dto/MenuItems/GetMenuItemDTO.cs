@@ -1,4 +1,4 @@
-﻿namespace RedMangoAPI.Models.Dto.MenuItem
+﻿namespace RedMangoAPI.Models.Dto.MenuItems
 {
     using RedMangoAPI.Database.Entities;
     using RedMangoAPI.Services.Mapper.Interfaces;

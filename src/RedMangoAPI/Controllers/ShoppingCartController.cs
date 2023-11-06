@@ -8,7 +8,7 @@
     using RedMangoAPI.Database;
     using RedMangoAPI.Database.Entities;
     using RedMangoAPI.Models;
-    using RedMangoAPI.Models.Dto.ShoppingCart;
+    using RedMangoAPI.Models.Dto.ShoppingCarts;
     using RedMangoAPI.Services.Mapper;
 
     public class ShoppingCartController : BaseApiController

@@ -1,7 +1,6 @@
-﻿namespace RedMangoAPI.Models.Dto.MenuItem
+﻿namespace RedMangoAPI.Models.Dto.MenuItems
 {
     using System.ComponentModel.DataAnnotations;
-    using System.Runtime.Serialization;
     using System.Text.Json.Serialization;
 
     using RedMangoAPI.Database.Entities;
