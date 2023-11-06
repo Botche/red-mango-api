@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RedMangoAPI.Database;
 
@@ -11,9 +12,11 @@ using RedMangoAPI.Database;
 namespace RedMangoAPI.Database.Migrations
 {
     [DbContext(typeof(RedMangoDbContext))]
-    partial class RedMangoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231106161951_AddOrderHeaderAndDetails")]
+    partial class AddOrderHeaderAndDetails
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -244,7 +247,7 @@ namespace RedMangoAPI.Database.Migrations
 
                     b.HasIndex("ShoppingCartId");
 
-                    b.ToTable("CartItems", (string)null);
+                    b.ToTable("CartItems");
                 });
 
             modelBuilder.Entity("RedMangoAPI.Database.Entities.MenuItem", b =>
@@ -275,7 +278,7 @@ namespace RedMangoAPI.Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MenuItems", (string)null);
+                    b.ToTable("MenuItems");
 
                     b.HasData(
                         new
@@ -408,7 +411,7 @@ namespace RedMangoAPI.Database.Migrations
 
                     b.HasIndex("OrderHeaderId");
 
-                    b.ToTable("OrderDetails", (string)null);
+                    b.ToTable("OrderDetails");
                 });
 
             modelBuilder.Entity("RedMangoAPI.Database.Entities.OrderHeader", b =>
@@ -451,7 +454,7 @@ namespace RedMangoAPI.Database.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("OrderHeaders", (string)null);
+                    b.ToTable("OrderHeaders");
                 });
 
             modelBuilder.Entity("RedMangoAPI.Database.Entities.ShoppingCart", b =>
@@ -467,7 +470,7 @@ namespace RedMangoAPI.Database.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ShoppingCarts", (string)null);
+                    b.ToTable("ShoppingCarts");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
