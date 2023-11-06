@@ -1,0 +1,17 @@
+﻿namespace RedMangoAPI.Models.Dto.ShoppingCarts
+{
+    using RedMangoAPI.Database.Entities;
+    using RedMangoAPI.Models.Dto.CartItems;
+    using RedMangoAPI.Services.Mapper.Interfaces;
+
+    public class GetShoppingCartForPaymentDTO : IMapFrom<ShoppingCart>
+    {
+        public Guid Id { get; set; }
+        public string UserId { get; set; }
+        public double CartTotal { get; set; }
+        public string StripePaymentIntentId { get; set; }
+        public string ClientSecret { get; set; }
+
+        public ICollection<GetCartItemDTO> CartItems { get; set; }
+    }
+}

@@ -23,14 +23,14 @@
         {
             try
             {
-                if (string.IsNullOrEmpty(userId))
-                {
-                    return this.BadRequest();
-                }
+                var shoppingCart = new GetShoppingCartDTO();
 
-                var shoppingCart = this.DbContext.ShoppingCarts
-                    .To<GetShoppingCartDTO>()
-                    .FirstOrDefault(x => x.UserId == userId);
+                if (!string.IsNullOrEmpty(userId))
+                {
+                    shoppingCart = this.DbContext.ShoppingCarts
+                        .To<GetShoppingCartDTO>()
+                        .FirstOrDefault(x => x.UserId == userId);
+                }
 
                 if (shoppingCart != null && shoppingCart.CartItems.Count > 0)
                 {
