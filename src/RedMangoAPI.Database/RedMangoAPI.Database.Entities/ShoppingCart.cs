@@ -10,6 +10,7 @@
         }
 
         public Guid UserId { get; set; }
+        [NotMapped]
         public virtual ApplicationUser User { get; set; }
 
         public ICollection<CartItem> CartItems { get; set; }
