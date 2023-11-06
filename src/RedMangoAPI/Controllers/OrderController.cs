@@ -49,19 +49,19 @@
             }
         }
 
-        [HttpGet("{orderId:Guid}")]
-        public ActionResult<ApiResponse> GetOrder(Guid orderId)
+        [HttpGet("{id:Guid}")]
+        public ActionResult<ApiResponse> GetOrder(Guid id)
         {
             try
             {
-                if (orderId == Guid.Empty)
+                if (id == Guid.Empty)
                 {
                     return this.BadRequest();
                 }
 
                 var orderHeader = this.DbContext.OrderHeaders
                     .To<GetOrderHeaderDTO>()
-                    .FirstOrDefault(oh => oh.Id == orderId);
+                    .FirstOrDefault(oh => oh.Id == id);
 
                 if (orderHeader == null)
                 {
@@ -113,6 +113,63 @@
                     this.ApiResponse.Result = order;
                     return this.Ok(this.ApiResponse);
                 }
+            }
+            catch (Exception ex)
+            {
+                this.ApiResponse.ErrorMessages = new List<string>()
+                {
+                    ex.Message
+                };
+
+                return this.BadRequest();
+            }
+
+            return this.ApiResponse;
+        }
+
+        [HttpPut("{id:Guid}")]
+        public async Task<ActionResult<ApiResponse>> UpdateOrder(Guid id, [FromBody] UpdateOrderHeaderDTO model)
+        {
+            try
+            {
+                if (model == null || id != model.Id)
+                {
+                    return this.BadRequest();
+                }
+
+                var orderFromDb = this.DbContext.OrderHeaders
+                    .Find(id);
+
+                if (orderFromDb == null)
+                {
+                    return this.BadRequest();
+                }
+
+                if (!string.IsNullOrEmpty(model.PickupName)) 
+                {
+                    orderFromDb.PickupName = model.PickupName;
+                }
+                if (!string.IsNullOrEmpty(model.PickupEmail)) 
+                {
+                    orderFromDb.PickupEmail = model.PickupEmail;
+                }
+                if (!string.IsNullOrEmpty(model.PickupPhoneNumber)) 
+                {
+                    orderFromDb.PickupPhoneNumber = model.PickupPhoneNumber;
+                }
+                if (!string.IsNullOrEmpty(model.Status)) 
+                {
+                    orderFromDb.Status = model.Status;
+                }
+                if (!string.IsNullOrEmpty(model.StripePaymentIntentId)) 
+                {
+                    orderFromDb.StripePaymentIntentId = model.StripePaymentIntentId;
+                }
+
+                this.DbContext.Update(orderFromDb);
+                await this.DbContext.SaveChangesAsync();
+
+                return this.Ok(this.ApiResponse);
             }
             catch (Exception ex)
             {
