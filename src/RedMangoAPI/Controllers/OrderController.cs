@@ -5,9 +5,11 @@
     using Microsoft.AspNetCore.Mvc;
 
     using RedMangoAPI.Database;
+    using RedMangoAPI.Database.Entities;
     using RedMangoAPI.Models;
     using RedMangoAPI.Models.Dto.OrderHeaders;
     using RedMangoAPI.Services.Mapper;
+    using RedMangoAPI.Utility.Constants;
 
     public class OrderController : BaseApiController
     {
@@ -47,8 +49,8 @@
             }
         }
 
-        [HttpGet("{id:Guid}")]
-        public ActionResult<ApiResponse> GetOrders(Guid orderId)
+        [HttpGet("{orderId:Guid}")]
+        public ActionResult<ApiResponse> GetOrder(Guid orderId)
         {
             try
             {
@@ -79,6 +81,50 @@
 
                 return this.BadRequest();
             }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<ApiResponse>> CreateOrder([FromBody] CreateOrderHeaderDTO model)
+        {
+            try
+            {
+                var order = this.Mapper.Map<OrderHeader>(model);
+
+                if (string.IsNullOrEmpty(order.Status))
+                {
+                    order.Status = GlobalConstants.StatusPending;
+                }
+
+                if (ModelState.IsValid)
+                {
+                    this.DbContext.OrderHeaders.Add(order);
+                    await this.DbContext.SaveChangesAsync();
+
+                    foreach (var orderDetailsDto in model.OrderDetails)
+                    {
+                        var orderDetails = this.Mapper.Map<OrderDetails>(orderDetailsDto);
+                        orderDetails.OrderHeaderId = order.Id;
+
+                        this.DbContext.OrderDetails.Add(orderDetails);
+                    }
+
+                    await this.DbContext.SaveChangesAsync();
+
+                    this.ApiResponse.Result = order;
+                    return this.Ok(this.ApiResponse);
+                }
+            }
+            catch (Exception ex)
+            {
+                this.ApiResponse.ErrorMessages = new List<string>()
+                {
+                    ex.Message
+                };
+
+                return this.BadRequest();
+            }
+
+            return this.ApiResponse;
         }
     }
 }

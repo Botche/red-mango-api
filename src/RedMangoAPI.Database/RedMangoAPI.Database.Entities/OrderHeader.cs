@@ -1,12 +1,15 @@
 ﻿namespace RedMangoAPI.Database.Entities
 {
     using System;
-    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
 
     public class OrderHeader : BaseEntity
     {
+        public OrderHeader()
+        {
+            this.OrderDetails = new HashSet<OrderDetails>();
+        }
+
         [Required]
         public string PickupName { get; set; }
         [Required]
@@ -23,5 +26,7 @@
         public string StripePaymentIntentId { get; set; }
         public string Status { get; set; }
         public int TotalItems { get; set; }
+
+        public IEnumerable<OrderDetails> OrderDetails { get; set; }
     }
 }
