@@ -1,7 +1,5 @@
 ﻿namespace RedMangoAPI.Models.Dto.OrderHeaders
 {
-    using System.ComponentModel.DataAnnotations;
-
     using RedMangoAPI.Database.Entities;
     using RedMangoAPI.Services.Mapper.Interfaces;
 
