@@ -8,12 +8,47 @@
     using RedMangoAPI.Database;
     using RedMangoAPI.Database.Entities;
     using RedMangoAPI.Models;
+    using RedMangoAPI.Models.Dto.ShoppingCart;
+    using RedMangoAPI.Services.Mapper;
 
     public class ShoppingCartController : BaseApiController
     {
         public ShoppingCartController(RedMangoDbContext dbContext, IMapper mapper)
             : base(dbContext, mapper)
         {
+        }
+
+        [HttpGet]
+        public ActionResult<ApiResponse> GetShoppingCart(Guid userId)
+        {
+            try
+            {
+                if (userId == Guid.Empty)
+                {
+                    return this.BadRequest();
+                }
+
+                var shoppingCart = this.DbContext.ShoppingCarts
+                    .To<GetShoppingCartDTO>()
+                    .FirstOrDefault(x => x.UserId == userId);
+
+                if (shoppingCart != null && shoppingCart.CartItems.Count > 0)
+                {
+                    shoppingCart.CartTotal = shoppingCart.CartItems
+                        .Sum(u => u.Quantity * u.MenuItem.Price);
+                }
+
+                this.ApiResponse.Result = shoppingCart;
+            }
+            catch (Exception ex)
+            {
+                this.ApiResponse.ErrorMessages
+                    .Add(ex.ToString());
+
+                return this.BadRequest(this.ApiResponse);
+            }
+
+            return this.Ok(this.ApiResponse);
         }
 
         [HttpPost]
