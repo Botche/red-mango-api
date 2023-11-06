@@ -9,8 +9,7 @@
             this.CartItems = new HashSet<CartItem>();
         }
 
-        public Guid UserId { get; set; }
-        [NotMapped]
+        public string UserId { get; set; }
         public virtual ApplicationUser User { get; set; }
 
         public ICollection<CartItem> CartItems { get; set; }

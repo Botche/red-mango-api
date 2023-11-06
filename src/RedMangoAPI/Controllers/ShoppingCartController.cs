@@ -19,11 +19,11 @@
         }
 
         [HttpGet]
-        public ActionResult<ApiResponse> GetShoppingCart(Guid userId)
+        public ActionResult<ApiResponse> GetShoppingCart(string userId)
         {
             try
             {
-                if (userId == Guid.Empty)
+                if (string.IsNullOrEmpty(userId))
                 {
                     return this.BadRequest();
                 }
@@ -52,7 +52,7 @@
         }
 
         [HttpPost]
-        public async Task<ActionResult<ApiResponse>> AddOrUpdateItemInCart(Guid userId, Guid menuItemId, int updateQuantityBy)
+        public async Task<ActionResult<ApiResponse>> AddOrUpdateItemInCart(string userId, Guid menuItemId, int updateQuantityBy)
         {
             var shoppingCart = this.DbContext.ShoppingCarts
                 .Include(u => u.CartItems)
