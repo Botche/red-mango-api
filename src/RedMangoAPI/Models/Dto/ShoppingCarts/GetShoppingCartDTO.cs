@@ -9,6 +9,8 @@
         public Guid Id { get; set; }
         public string UserId { get; set; }
         public double CartTotal { get; set; }
+        public string StripePaymentIntentId { get; set; }
+        public string ClientSecret { get; set; }
 
         public ICollection<GetCartItemDTO> CartItems { get; set; }
     }
