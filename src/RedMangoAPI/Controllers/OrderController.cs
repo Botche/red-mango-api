@@ -89,7 +89,7 @@
             try
             {
                 var order = this.Mapper.Map<OrderHeader>(model);
-
+                order.OrderDetails = null;
                 if (string.IsNullOrEmpty(order.Status))
                 {
                     order.Status = GlobalConstants.StatusPending;
