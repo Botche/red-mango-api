@@ -110,7 +110,8 @@
 
                     await this.DbContext.SaveChangesAsync();
 
-                    this.ApiResponse.Result = order;
+                    var mappedOrder = this.Mapper.Map<GetOrderHeaderDTO>(order);
+                    this.ApiResponse.Result = mappedOrder;
                     return this.Ok(this.ApiResponse);
                 }
             }
