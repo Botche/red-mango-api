@@ -19,6 +19,7 @@
         public string UserId { get; set; }
 
         public double OrderTotal { get; set; }
+        public DateTime OrderDate { get; set; }
 
         public string StripePaymentIntentId { get; set; }
         public string Status { get; set; }
