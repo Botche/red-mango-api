@@ -112,7 +112,7 @@
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(CustomClaimTypes.UserName, user.UserName),
+                    new Claim(CustomClaimTypes.FullName, user.Name),
                     new Claim(CustomClaimTypes.Id, user.Id.ToString()),
                     new Claim(CustomClaimTypes.Email, user.Email.ToString()),
                     new Claim(CustomClaimTypes.Role, role),
