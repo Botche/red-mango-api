@@ -19,7 +19,7 @@
         }
 
         [HttpGet]
-        public ActionResult<ApiResponse> GetOrders(string userId)
+        public ActionResult<ApiResponse> GetOrders(string userId, string searchString, string status)
         {
             try
             {
@@ -29,7 +29,21 @@
                 if (!string.IsNullOrEmpty(userId))
                 {
                     orderHeaders = orderHeaders
-                        .Where(u => u.UserId == userId);
+                        .Where(oh => oh.UserId == userId);
+                }
+
+                if (!string.IsNullOrEmpty(searchString))
+                {
+                    orderHeaders = orderHeaders
+                        .Where(oh => oh.PickupPhoneNumber.Contains(searchString, StringComparison.OrdinalIgnoreCase)
+                            || oh.PickupEmail.Contains(searchString, StringComparison.OrdinalIgnoreCase)
+                            || oh.PickupName.Contains(searchString, StringComparison.OrdinalIgnoreCase));
+                }
+
+                if (!string.IsNullOrEmpty(status))
+                {
+                    orderHeaders = orderHeaders
+                        .Where(oh => oh.Status.Equals(status, StringComparison.OrdinalIgnoreCase));
                 }
 
                 this.ApiResponse.Result = orderHeaders
@@ -146,23 +160,23 @@
                     return this.BadRequest();
                 }
 
-                if (!string.IsNullOrEmpty(model.PickupName)) 
+                if (!string.IsNullOrEmpty(model.PickupName))
                 {
                     orderFromDb.PickupName = model.PickupName;
                 }
-                if (!string.IsNullOrEmpty(model.PickupEmail)) 
+                if (!string.IsNullOrEmpty(model.PickupEmail))
                 {
                     orderFromDb.PickupEmail = model.PickupEmail;
                 }
-                if (!string.IsNullOrEmpty(model.PickupPhoneNumber)) 
+                if (!string.IsNullOrEmpty(model.PickupPhoneNumber))
                 {
                     orderFromDb.PickupPhoneNumber = model.PickupPhoneNumber;
                 }
-                if (!string.IsNullOrEmpty(model.Status)) 
+                if (!string.IsNullOrEmpty(model.Status))
                 {
                     orderFromDb.Status = model.Status;
                 }
-                if (!string.IsNullOrEmpty(model.StripePaymentIntentId)) 
+                if (!string.IsNullOrEmpty(model.StripePaymentIntentId))
                 {
                     orderFromDb.StripePaymentIntentId = model.StripePaymentIntentId;
                 }
