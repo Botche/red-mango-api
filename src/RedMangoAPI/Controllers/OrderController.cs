@@ -19,22 +19,22 @@
         }
 
         [HttpGet]
-        public ActionResult<ApiResponse> GetOrders(string? userId)
+        public ActionResult<ApiResponse> GetOrders(string userId)
         {
             try
             {
                 var orderHeaders = this.DbContext.OrderHeaders
-                    .To<GetOrderHeaderDTO>()
-                    .OrderByDescending(u => u.Id);
+                    .To<GetOrderHeaderDTO>();
 
                 if (!string.IsNullOrEmpty(userId))
                 {
-                    this.ApiResponse.Result = orderHeaders
-                        .Where(u => u.UserId == userId)
-                        .ToList();
+                    orderHeaders = orderHeaders
+                        .Where(u => u.UserId == userId);
                 }
 
-                this.ApiResponse.Result = orderHeaders;
+                this.ApiResponse.Result = orderHeaders
+                    .OrderByDescending(u => u.Id)
+                    .ToList();
 
                 return this.Ok(ApiResponse);
             }
