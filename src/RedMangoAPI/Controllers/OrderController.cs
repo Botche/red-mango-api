@@ -36,10 +36,12 @@
 
                 if (!string.IsNullOrEmpty(searchString))
                 {
+                    var searcStringToUpper = searchString.ToUpper();
+
                     orderHeaders = orderHeaders
-                        .Where(oh => oh.PickupPhoneNumber.Contains(searchString, StringComparison.OrdinalIgnoreCase)
-                            || oh.PickupEmail.Contains(searchString, StringComparison.OrdinalIgnoreCase)
-                            || oh.PickupName.Contains(searchString, StringComparison.OrdinalIgnoreCase));
+                        .Where(oh => oh.PickupPhoneNumber.ToUpper().Contains(searcStringToUpper)
+                            || oh.PickupEmail.ToUpper().Contains(searcStringToUpper)
+                            || oh.PickupName.ToUpper().Contains(searcStringToUpper));
                 }
 
                 if (!string.IsNullOrEmpty(status))
