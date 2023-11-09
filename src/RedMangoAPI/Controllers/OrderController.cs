@@ -1,5 +1,7 @@
 ﻿namespace RedMangoAPI.Controllers
 {
+    using System.Text.Json;
+
     using AutoMapper;
 
     using Microsoft.AspNetCore.Mvc;
@@ -19,7 +21,7 @@
         }
 
         [HttpGet]
-        public ActionResult<ApiResponse> GetOrders(string userId, string searchString, string status)
+        public ActionResult<ApiResponse> GetOrders(string userId, string searchString, string status, int pageNumber = 1, int pageSize = 5)
         {
             try
             {
@@ -46,8 +48,20 @@
                         .Where(oh => oh.Status.Equals(status, StringComparison.OrdinalIgnoreCase));
                 }
 
+                var pagination = new Pagination()
+                {
+                    CurrentPage = pageNumber,
+                    PageSize = pageSize,
+                    TotalRecords = orderHeaders.Count(),
+                };
+
+                this.Response.Headers
+                    .Add("X-Pagination", JsonSerializer.Serialize(pagination));
+
                 this.ApiResponse.Result = orderHeaders
                     .OrderByDescending(u => u.Id)
+                    .Skip((pageNumber - 1) * pageSize)
+                    .Take(pageSize)
                     .ToList();
 
                 return this.Ok(ApiResponse);
