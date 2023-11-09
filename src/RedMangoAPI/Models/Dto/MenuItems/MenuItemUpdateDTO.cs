@@ -17,9 +17,9 @@
         public string Category { get; set; }
         [Range(1, int.MaxValue)]
         public double Price { get; set; }
-        public IFormFile NewImageFile { get; set; }
+        public IFormFile ImageFile { get; set; }
 
         [JsonIgnore]
-        public string NewImageFileName => $"{Guid.NewGuid()}{Path.GetExtension(NewImageFile.FileName)}";
+        public string ImageFileName => $"{Guid.NewGuid()}{Path.GetExtension(ImageFile.FileName)}";
     }
 }
