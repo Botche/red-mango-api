@@ -18,6 +18,6 @@
         public IFormFile ImageFile { get; set; }
 
         [JsonIgnore]
-        public string ImageFileName => $"{Guid.NewGuid()}{Path.GetExtension(ImageFile.FileName)}";
+        public string ImageFileName => $"{Guid.NewGuid()}{Path.GetExtension(ImageFile?.FileName)}";
     }
 }
