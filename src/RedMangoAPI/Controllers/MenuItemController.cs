@@ -15,13 +15,12 @@
     using RedMangoAPI.Services.Interfaces;
     using RedMangoAPI.Utility.Constants;
 
-    [Authorize]
     public class MenuItemController : BaseApiController
     {
         private readonly IBlobService blobService;
 
         public MenuItemController(RedMangoDbContext dbContext, IMapper mapper, IBlobService blobService)
-            : base(dbContext, mapper) 
+            : base(dbContext, mapper)
         {
             this.blobService = blobService;
         }
@@ -56,6 +55,7 @@
         }
 
         [HttpPost]
+        [Authorize(Roles = GlobalConstants.RoleAdmin)]
         public async Task<ActionResult<ApiResponse>> CreateMenuItem([FromForm] MenuItemCreateDTO model)
         {
             try
@@ -94,6 +94,7 @@
         }
 
         [HttpPut("{id:Guid}")]
+        [Authorize(Roles = GlobalConstants.RoleAdmin)]
         public async Task<ActionResult<ApiResponse>> UpdateMenuItem(Guid id, [FromForm] MenuItemUpdateDTO model)
         {
             try
@@ -114,12 +115,12 @@
 
                     menuItem = this.Mapper.Map(model, menuItem); 
 
-                    if (model.NewImageFile != null && model.NewImageFile.Length > 0)
+                    if (model.ImageFile != null && model.ImageFile.Length > 0)
                     {
                         await this.blobService.Delete(menuItem.ImageName, GlobalConstants.StorageContainerName);
 
                         menuItem.ImageUrl = await this.blobService
-                            .Upload(model.NewImageFileName, GlobalConstants.StorageContainerName, model.NewImageFile);
+                            .Upload(model.ImageFileName, GlobalConstants.StorageContainerName, model.ImageFile);
                     }
 
                     this.DbContext.MenuItems.Update(menuItem);
@@ -143,6 +144,7 @@
         }
 
         [HttpDelete("{id:Guid}")]
+        [Authorize(Roles = GlobalConstants.RoleAdmin)]
         public async Task<ActionResult<ApiResponse>> DeleteMenuItem(Guid id)
         {
             try
