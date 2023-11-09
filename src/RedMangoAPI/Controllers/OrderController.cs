@@ -47,7 +47,7 @@
                 if (!string.IsNullOrEmpty(status))
                 {
                     orderHeaders = orderHeaders
-                        .Where(oh => oh.Status.Equals(status, StringComparison.OrdinalIgnoreCase));
+                        .Where(oh => oh.Status.ToUpper().Equals(status.ToUpper()));
                 }
 
                 var pagination = new Pagination()
