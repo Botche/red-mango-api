@@ -110,6 +110,12 @@ AutoMapperConfig.RegisterMappings(assemblies.ToArray());
 
 builder.Services.AddSingleton(AutoMapperConfig.MapperInstance);
 
+builder.Services.Configure<RouteOptions>(options =>
+{
+    options.LowercaseUrls = true;
+    options.AppendTrailingSlash = true;
+    options.LowercaseQueryStrings = true;
+});
 
 var app = builder.Build();
 
