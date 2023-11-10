@@ -1,5 +1,6 @@
 ﻿namespace RedMangoAPI.Database.Entities
 {
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.Runtime.Serialization;
     using System.Text.Json.Serialization;
@@ -11,6 +12,7 @@
         {
         }
 
+        public int ItemNumber { get; set; }
         [Required]
         public string Name { get; set; }
         public string Description { get; set; }

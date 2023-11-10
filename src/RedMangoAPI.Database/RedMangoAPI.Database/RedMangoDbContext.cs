@@ -25,6 +25,19 @@
         {
             base.OnModelCreating(builder);
 
+            builder.Entity<MenuItem>()
+                .HasKey(mi => mi.Id)
+                .IsClustered(false);
+
+            builder.Entity<MenuItem>()
+                .HasIndex(mi => mi.ItemNumber)
+                .IsUnique()
+                .IsClustered();
+
+            builder.Entity<MenuItem>()
+                .Property(mi => mi.ItemNumber)
+                .UseIdentityColumn();
+
             builder.Entity<MenuItem>().HasData(MenuItemSeed.MenuItems);
         }
     }
