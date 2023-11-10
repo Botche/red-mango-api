@@ -7,6 +7,7 @@
     public class GetOrderHeaderDTO : IMapFrom<OrderHeader>
     {
         public Guid Id { get; set; }
+        public int ItemNumber { get; set; }
 
         public string UserId { get; set; }
 

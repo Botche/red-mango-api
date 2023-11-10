@@ -61,7 +61,7 @@
                     .Add("X-Pagination", JsonSerializer.Serialize(pagination));
 
                 this.ApiResponse.Result = orderHeaders
-                    .OrderByDescending(u => u.Id)
+                    .OrderByDescending(u => u.ItemNumber)
                     .Skip((pageNumber - 1) * pageSize)
                     .Take(pageSize)
                     .ToList();

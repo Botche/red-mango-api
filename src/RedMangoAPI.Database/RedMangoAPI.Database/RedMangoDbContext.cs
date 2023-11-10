@@ -38,6 +38,19 @@
                 .Property(mi => mi.ItemNumber)
                 .UseIdentityColumn();
 
+            builder.Entity<OrderHeader>()
+                .HasKey(mi => mi.Id)
+                .IsClustered(false);
+
+            builder.Entity<OrderHeader>()
+                .HasIndex(mi => mi.ItemNumber)
+                .IsUnique()
+                .IsClustered();
+
+            builder.Entity<OrderHeader>()
+                .Property(mi => mi.ItemNumber)
+                .UseIdentityColumn();
+
             builder.Entity<MenuItem>().HasData(MenuItemSeed.MenuItems);
         }
     }

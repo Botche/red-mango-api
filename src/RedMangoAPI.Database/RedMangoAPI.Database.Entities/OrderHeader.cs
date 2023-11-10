@@ -10,6 +10,7 @@
             this.OrderDetails = new HashSet<OrderDetails>();
         }
 
+        public int ItemNumber { get; set; }
         [Required]
         public string PickupName { get; set; }
         [Required]

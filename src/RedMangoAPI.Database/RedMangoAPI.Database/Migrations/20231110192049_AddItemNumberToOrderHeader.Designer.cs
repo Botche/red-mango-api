@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RedMangoAPI.Database;
 
@@ -11,9 +12,11 @@ using RedMangoAPI.Database;
 namespace RedMangoAPI.Database.Migrations
 {
     [DbContext(typeof(RedMangoDbContext))]
-    partial class RedMangoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231110192049_AddItemNumberToOrderHeader")]
+    partial class AddItemNumberToOrderHeader
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
